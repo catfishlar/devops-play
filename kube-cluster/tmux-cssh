@@ -1,0 +1,26 @@
+
+#!/bin/sh
+
+usage() {
+  echo "Usage: $0 user1@host1 user2@host2 host3 host{4..6} host7 host8 [...]"
+}
+[ $# -lt 1 ] && usage && exit 1
+
+create_ssh_pane() {
+  local session=$1
+  local host=$2
+
+  tmux has-session -t $session 2>/dev/null \
+    && tmux split-window -t $session "exec ssh $host" \
+    || tmux new-session -d -s $session "exec ssh $host"
+
+  tmux select-layout -t $session tiled >/dev/null
+}
+
+export session="cssh-$$"
+for host in "$@"; do
+  create_ssh_pane $session $host
+done
+#tmux set-window-option -t $session status off >/dev/null
+tmux set-window-option -t $session synchronize-panes on >/dev/null
+exec tmux attach -t $session
