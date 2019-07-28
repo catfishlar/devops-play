@@ -1,0 +1,4 @@
+name: fabric
+dependencies:
+  - python=3.6
+  - fabric

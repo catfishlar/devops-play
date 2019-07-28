@@ -201,9 +201,20 @@ Change which line is uncommented.  to
     %wheel        ALL=(ALL)       NOPASSWD: ALL  
 
 
-Your systems are ready for efficient system update with Ansible.     
+Your systems are ready for efficient system update with Ansible.   
 
-This would be a good time to take a [lvm snapshot](lvm-snapshots.md)    
+This would be a good time to take a [lvm snapshot](lvm-snapshots.md)     
+
+### Set up LVM Snapshots
+
+I freed up 50 GB from the /home partition and then put 20 toward LVM snapshots and 30 was left 
+over for the docker install, see next. 
+
+if things get ugly.. I can reset to all the stuff above. Which should help. 
+
+see the doc [lvm-snapshots.md](lvm-snapshots.md)
+
+So the following things.. were done AFTER I set up the snapshot.  
 
 
 ### Turn off Password Login
@@ -253,6 +264,13 @@ If you do a status then it will show you things like..
  Full details [here](https://www.liberiangeek.net/2014/07/enable-ssh-key-logon-disable-password-password-less-logon-centos/)
 
 
+
+### Setting up Docker the right way..
+
+This install of Docker is going to have a partition for the backing store. Not sure if this 
+is just a RHEL oddness, but it does seem to be freaquently brought up. 
+
+I put this in its own doc as well [docker-install.md](docker-install.md)
 
 
 ## System Management with Ansible
